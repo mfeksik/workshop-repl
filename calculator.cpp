@@ -36,9 +36,53 @@ public:
     }
 };
 
-// TODO: добавьте команды для работы с комплексными числами
+using Complex = std::complex<float>;
 
-using Repl = ::repl::Repl<Multiply, SquareRoot>;
+class ComplexAdd
+    : public repl::BaseCommand<ComplexAdd, Complex, Complex, Complex>
+{
+public:
+    const std::string_view longName = "cadd";
+    const std::string_view shortName = "ca";
+    ComplexAdd() = default;
+    Complex operator()(const Complex lhs, const Complex rhs) const
+    {
+        return lhs + rhs;
+    }
+};
+
+class ComplexMultiply
+    : public repl::BaseCommand<ComplexMultiply, Complex, Complex, Complex>
+{
+public:
+    const std::string_view longName = "cmul";
+    const std::string_view shortName = "cm";
+    ComplexMultiply() = default;
+    Complex operator()(const Complex lhs, const Complex rhs) const
+    {
+        return lhs * rhs;
+    }
+};
+
+class ComplexAbs : public repl::BaseCommand<ComplexAbs, float, Complex>
+{
+public:
+    const std::string_view longName = "cabs";
+    const std::string_view shortName = "abs";
+    ComplexAbs() = default;
+    float operator()(const Complex number) const
+    {
+        return std::abs(number);
+    }
+};
+
+using Repl = ::repl::Repl<
+    Multiply,
+    SquareRoot,
+    ComplexAdd,
+    ComplexMultiply,
+    ComplexAbs
+>;
 
 } // namespace calculator
 } // namespace repl

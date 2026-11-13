@@ -2,3 +2,12 @@ build/
 .cache/
 # plaintext solution (after decryption)
 solution/solution.diff
+
+cmake-build-*/
+
+.idea/
+
+*.exe
+*.obj
+*.o
+*.out
